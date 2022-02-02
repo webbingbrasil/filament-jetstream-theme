@@ -2,15 +2,6 @@
 
 A Jetstream theme for filament
 
-## Screenshots
-
-![Screenshot of Login](./images/login.png)
-![Screenshot of Dashboard](./images/dashboard.png)
-![Screenshot of User Manage Account Menu](./images/user-manage-account-menu.png)
-![Screenshot of List Page](./images/list-page.png)
-![Screenshot of Form Page](./images/resource-create-page.png)
-![Screenshot of Form Page With Title and Description](./images/resource-create-page-with-title.png)
-
 ## Installation
 
 ```bash
@@ -79,6 +70,15 @@ Usage example
         </x-filament::form>
     </x-filament-jetstream::grid-section>
 ```
+
+## Screenshots
+
+![Screenshot of Login](./images/login.png)
+![Screenshot of Dashboard](./images/dashboard.png)
+![Screenshot of User Manage Account Menu](./images/user-manage-account-menu.png)
+![Screenshot of List Page](./images/list-page.png)
+![Screenshot of Form Page](./images/resource-create-page.png)
+![Screenshot of Form Page With Title and Description](./images/resource-create-page-with-title.png)
 
 ## Credits
 
