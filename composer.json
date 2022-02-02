@@ -1,0 +1,42 @@
+{
+    "name": "webbingbrasil/filament-jetstream-theme",
+    "description": "A custom theme for Filament inspired in Laravel Jetstream.",
+    "keywords": [
+        "laravel",
+        "filament",
+        "filament-jetstream"
+    ],
+    "homepage": "https://github.com/webbingbrasil/filament-jetstream-theme",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danilo Andrade",
+            "email": "danilo@webbingbrasil.com.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "spatie/laravel-package-tools": "^1.9.2",
+        "filament/filament": "^2.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Webbingbrasil\\FilamentJetstreamTheme\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webbingbrasil\\FilamentJetstreamTheme\\FilamentJetstreamThemeProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

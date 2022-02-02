@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production",
+        "patch": "patch-package",
+        "build": "npm run production"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^12.1.4",
+        "@commitlint/config-conventional": "^12.1.4",
+        "@semantic-release/changelog": "^5.0.1",
+        "@semantic-release/git": "^9.0.0",
+        "@tailwindcss/forms": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.0",
+        "commitizen": "^4.2.4",
+        "cz-conventional-changelog": "^3.2.0",
+        "husky": "^4.2.5",
+        "laravel-mix": "^6.0.37",
+        "patch-package": "^6.2.2",
+        "postcss": "^8.4.4",
+        "semantic-release": "^17.3.8",
+        "tailwindcss": "^3.0.0"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
+}
