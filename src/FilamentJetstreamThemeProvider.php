@@ -9,22 +9,23 @@ use function Filament\get_asset_id;
 
 class FilamentJetstreamThemeProvider extends PluginServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public static string $name = 'filament-jetstream';
+
+    public function packageConfigured(Package $package): void
     {
-        $package->name('filament-jetstream')
-            ->hasViews()
-            ->hasRoute('web');
+        $package->hasRoute('web');
 
         // add theme path hint to filament namespace
-        $this->callAfterResolving('view', function ($view) {
+        $this->callAfterResolving('view', function ($view) use ($package) {
             $namespace = 'filament';
             if (isset($this->app->config['view']['paths']) &&
                 is_array($this->app->config['view']['paths'])) {
                 foreach ($this->app->config['view']['paths'] as $viewPath) {
-                    if (is_dir($appPath = $viewPath.'/vendor/filament-jetstream-theme')) {
+                    if (is_dir($appPath = $viewPath.'/vendor/filament-jetstream')) {
                         // add a custom vendor path in project resource
                         // folder to allow override theme views
-                        $view->addNamespace($namespace, $appPath);
+                        $view->addNamespace($package->shortName(), $appPath);
+                        $view->addNamespace($namespace, $viewPath.'/vendor/filament');
                     }
                 }
             }
@@ -38,5 +39,12 @@ class FilamentJetstreamThemeProvider extends PluginServiceProvider
                 'file' => 'app.css',
             ]));
         });
+
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                $this->package->basePath('/../resources/vendor/filament') => base_path("resources/views/vendor/filament"),
+            ], "{$this->package->shortName()}-views");
+        }
     }
 }
