@@ -11,7 +11,7 @@ composer require webbingbrasil/filament-jetstream-theme
 Optionally, you can publish the views using:
 
 ```bash
-php artisan vendor:publish --tag="filament-jetstream-theme-views"
+php artisan vendor:publish --tag="filament-jetstream-views"
 ```
 
 ## User manage account menu
