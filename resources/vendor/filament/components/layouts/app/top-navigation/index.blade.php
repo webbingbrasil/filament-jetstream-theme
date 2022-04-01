@@ -8,7 +8,16 @@
 @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div @class([match (config('filament.layout.max_content_width')) {
+                    'xl' => 'max-w-xl',
+                    '2xl' => 'max-w-2xl',
+                    '3xl' => 'max-w-3xl',
+                    '4xl' => 'max-w-4xl',
+                    '5xl' => 'max-w-5xl',
+                    '6xl' => 'max-w-6xl',
+                    'full' => 'max-w-full',
+                    default => 'max-w-7xl',
+                },'mx-auto px-4 sm:px-6 lg:px-8'])>
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -62,7 +71,7 @@
                 <div class="ml-3 relative">
                     @livewire('filament.core.global-search')
                 </div>
-            <!-- Settings Dropdown -->
+                <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-filament::layouts.app.top-navigation.dropdown align="right" width="48">
                         <x-slot name="trigger">

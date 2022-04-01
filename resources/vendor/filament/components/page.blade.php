@@ -1,6 +1,6 @@
 @props([
-    'modals' => null,
-    'widgetRecord' => null,
+'modals' => null,
+'widgetRecord' => null,
 ])
 
 @php
@@ -60,23 +60,33 @@
             </header>
         @endif
 
-        <div class="">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                @if ($headerWidgets = $this->getHeaderWidgets())
-                    <x-filament::widgets :widgets="$headerWidgets" :data="['record' => $widgetRecord]" />
-                @endif
+        <div @class([
+            match (config('filament.layout.max_content_width')) {
+                        'xl' => 'max-w-xl',
+                        '2xl' => 'max-w-2xl',
+                        '3xl' => 'max-w-3xl',
+                        '4xl' => 'max-w-4xl',
+                        '5xl' => 'max-w-5xl',
+                        '6xl' => 'max-w-6xl',
+                        'full' => 'max-w-full',
+                        default => 'max-w-7xl',
+                    },
+            "mx-auto sm:px-6 lg:px-8"
+        ])>
+            @if ($headerWidgets = $this->getHeaderWidgets())
+                <x-filament::widgets :widgets="$headerWidgets" :data="['record' => $widgetRecord]" />
+            @endif
 
 
-                {{ $slot }}
+            {{ $slot }}
 
-                @if ($footerWidgets = $this->getFooterWidgets())
-                    <x-filament::widgets :widgets="$footerWidgets" :data="['record' => $widgetRecord]" />
-                @endif
+            @if ($footerWidgets = $this->getFooterWidgets())
+                <x-filament::widgets :widgets="$footerWidgets" :data="['record' => $widgetRecord]" />
+            @endif
 
-                @if ($footer = $this->getFooter())
-                    {{ $footer }}
-                @endif
-            </div>
+            @if ($footer = $this->getFooter())
+                {{ $footer }}
+            @endif
         </div>
     </div>
 
