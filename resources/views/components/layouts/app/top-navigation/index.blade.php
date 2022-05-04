@@ -29,12 +29,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @foreach ($navigation as $group => $items)
+                    @foreach ($navigation as $group => ['items' => $items, 'collapsible' => $collapsible])
                         @if ($group)
                             @php
                                 $groupActive = false;
                             @endphp
-                            <x-filament::layouts.app.top-navigation.dropdown>
+                            <x-filament-jetstream::layouts.app.top-navigation.dropdown>
                                 <x-slot name="content">
                                     @foreach ($items as $item)
                                         @php
@@ -42,10 +42,10 @@
                                                 $groupActive = true;
                                             }
                                         @endphp
-                                        <x-filament::layouts.app.top-navigation.dropdown-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
+                                        <x-filament-jetstream::layouts.app.top-navigation.dropdown-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
                                             <x-dynamic-component :component="$item->getIcon()" class="h-5 w-5" />
                                             {{ $item->getLabel() }}
-                                        </x-filament::layouts.app.top-navigation.dropdown-link>
+                                        </x-filament-jetstream::layouts.app.top-navigation.dropdown-link>
                                     @endforeach
                                 </x-slot>
                                 <x-slot name="trigger">
@@ -53,13 +53,13 @@
                                         {{ __($group) }}
                                     </span>
                                 </x-slot>
-                            </x-filament::layouts.app.top-navigation.dropdown>
+                            </x-filament-jetstream::layouts.app.top-navigation.dropdown>
                         @else
                             @foreach ($items as $item)
-                                <x-filament::layouts.app.top-navigation.nav-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
+                                <x-filament-jetstream::layouts.app.top-navigation.nav-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
                                     <x-dynamic-component :component="$item->getIcon()" class="h-5 w-5" />
                                     {{ $item->getLabel() }}
-                                </x-filament::layouts.app.top-navigation.nav-link>
+                                </x-filament-jetstream::layouts.app.top-navigation.nav-link>
                             @endforeach
                         @endif
                     @endforeach
@@ -73,7 +73,7 @@
                 </div>
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
-                    <x-filament::layouts.app.top-navigation.dropdown align="right" width="48">
+                    <x-filament-jetstream::layouts.app.top-navigation.dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if ($userPhoto)
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
@@ -99,18 +99,18 @@
                             </div>
 
                             @foreach($manageAccountNavigation as $item)
-                                <x-filament::layouts.app.top-navigation.dropdown-link href="{{ $item->getUrl() }}">
+                                <x-filament-jetstream::layouts.app.top-navigation.dropdown-link href="{{ $item->getUrl() }}">
                                     {{ $item->getLabel() }}
-                                </x-filament::layouts.app.top-navigation.dropdown-link>
+                                </x-filament-jetstream::layouts.app.top-navigation.dropdown-link>
                             @endforeach
 
                             <div class="border-t border-gray-100"></div>
 
-                            <x-filament::layouts.app.top-navigation.dropdown-link href="{{ route('filament.auth.logout') }}">
+                            <x-filament-jetstream::layouts.app.top-navigation.dropdown-link href="{{ route('filament.auth.logout') }}">
                                 {{ __('filament::layout.buttons.logout.label') }}
-                            </x-filament::layouts.app.top-navigation.dropdown-link>
+                            </x-filament-jetstream::layouts.app.top-navigation.dropdown-link>
                         </x-slot>
-                    </x-filament::layouts.app.top-navigation.dropdown>
+                    </x-filament-jetstream::layouts.app.top-navigation.dropdown>
                 </div>
             </div>
 
@@ -129,17 +129,17 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @foreach ($navigation as $group => $items)
+            @foreach ($navigation as $group => ['items' => $items, 'collapsible' => $collapsible])
                 @if ($group)
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ $group }}
                     </div>
                 @endif
                 @foreach ($items as $item)
-                    <x-filament::layouts.app.top-navigation.responsive-nav-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
+                    <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
                         <x-dynamic-component :component="$item->getIcon()" class="h-5 w-5" />
                         {{ $item->getLabel() }}
-                    </x-filament::layouts.app.top-navigation.responsive-nav-link>
+                    </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
                 @endforeach
             @endforeach
         </div>
@@ -161,14 +161,14 @@
             <div class="mt-3 space-y-1">
 
                 @foreach($manageAccountNavigation as $item)
-                    <x-filament::layouts.app.top-navigation.responsive-nav-link href="{{ $item->getUrl() }}">
+                    <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link href="{{ $item->getUrl() }}">
                         {{ $item->getLabel() }}
-                    </x-filament::layouts.app.top-navigation.responsive-nav-link>
+                    </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
                 @endforeach
 
-                <x-filament::layouts.app.top-navigation.responsive-nav-link href="{{ route('filament.auth.logout') }}">
+                <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link href="{{ route('filament.auth.logout') }}">
                     {{ __('filament::layout.buttons.logout.label') }}
-                </x-filament::layouts.app.top-navigation.responsive-nav-link>
+                </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@
             class="fixed inset-0 z-20 w-full h-full bg-gray-900/50 lg:hidden"
         ></div>
 
-        <x-filament::layouts.app.top-navigation />
+        <x-filament-jetstream::layouts.app.top-navigation />
 
         <div class="w-full space-y-3 flex-1 flex flex-col">
             <div class="flex-1 w-full mx-auto">
