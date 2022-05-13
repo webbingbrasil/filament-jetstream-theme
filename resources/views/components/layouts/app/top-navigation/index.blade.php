@@ -1,10 +1,9 @@
 @php
     $user = \Filament\Facades\Filament::auth()->user();
-    $userPhoto = \Filament\Facades\Filament::getUserAvatarUrl($user);
-    $userName = \Filament\Facades\Filament::getUserName($user);
     $navigation = \Filament\Facades\Filament::getNavigation();
-    $manageAccountNavigation = $navigation['Manage Account'] ?? [];
-    unset($navigation['Manage Account']);
+    $userMenuItems = \Filament\Facades\Filament::getUserMenuItems();
+    $accountItem = $userMenuItems['account'] ?? null;
+    $logoutItem = $userMenuItems['logout'] ?? null;
 @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
@@ -42,8 +41,10 @@
                                                 $groupActive = true;
                                             }
                                         @endphp
-                                        <x-filament-jetstream::layouts.app.top-navigation.dropdown-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
-                                            <x-dynamic-component :component="$item->getIcon()" class="h-5 w-5" />
+                                        <x-filament-jetstream::layouts.app.top-navigation.dropdown-link
+                                            href="{{ $item->getUrl() }}"
+                                            :icon="$item->getIcon()"
+                                            :active="$item->isActive()">
                                             {{ $item->getLabel() }}
                                         </x-filament-jetstream::layouts.app.top-navigation.dropdown-link>
                                     @endforeach
@@ -56,8 +57,10 @@
                             </x-filament-jetstream::layouts.app.top-navigation.dropdown>
                         @else
                             @foreach ($items as $item)
-                                <x-filament-jetstream::layouts.app.top-navigation.nav-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
-                                    <x-dynamic-component :component="$item->getIcon()" class="h-5 w-5" />
+                                <x-filament-jetstream::layouts.app.top-navigation.nav-link
+                                    href="{{ $item->getUrl() }}"
+                                    :icon="$item->getIcon()"
+                                    :active="$item->isActive()">
                                     {{ $item->getLabel() }}
                                 </x-filament-jetstream::layouts.app.top-navigation.nav-link>
                             @endforeach
@@ -99,8 +102,10 @@
                     </div>
                 @endif
                 @foreach ($items as $item)
-                    <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link href="{{ $item->getUrl() }}" :active="$item->isActive()">
-                        <x-dynamic-component :component="$item->getIcon()" class="h-5 w-5" />
+                    <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link
+                        href="{{ $item->getUrl() }}"
+                        :icon="$item->getIcon()"
+                        :active="$item->isActive()">
                         {{ $item->getLabel() }}
                     </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
                 @endforeach
@@ -109,30 +114,36 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                @if ($userPhoto)
-                    <div class="shrink-0 mr-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ $userPhoto }}" alt="{{ $userName }}" />
-                    </div>
-                @endif
+            <ul @class([
+            'py-1 space-y-1 overflow-hidden ',
+            'dark:border-gray-600 dark:bg-gray-700' => config('filament.dark_mode'),
+        ])>
+                <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link
+                    :icon="$accountItem?->getIcon() ?? 'heroicon-s-user-circle'"
+                    href="$accountItem?->getUrl()"
+                >
+                    {{ $accountItem?->getLabel() ?? \Filament\Facades\Filament::getUserName($user) }}
+                </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
 
-                <div>
-                    <div class="font-medium text-base text-gray-800">{{ $userName }}</div>
-                </div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-
-                @foreach($manageAccountNavigation as $item)
-                    <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link href="{{ $item->getUrl() }}">
-                        {{ $item->getLabel() }}
-                    </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
+                @foreach ($userMenuItems as $key => $item)
+                    @if ($key !== 'account' && $key !== 'logout')
+                        <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link
+                            href="{{ $item->getUrl() }}"
+                            :icon="$item->getIcon()">
+                            {{ $item->getLabel() }}
+                        </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
+                    @endif
                 @endforeach
 
-                <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link href="{{ route('filament.auth.logout') }}">
-                    {{ __('filament::layout.buttons.logout.label') }}
+                <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link
+                    :icon="$logoutItem?->getIcon() ?? 'heroicon-s-logout'"
+                    :action="$logoutItem?->getUrl() ?? route('filament.auth.logout')"
+                    method="post"
+                    tag="form"
+                >
+                    {{ $logoutItem?->getLabel() ?? __('filament::layout.buttons.logout.label') }}
                 </x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link>
-            </div>
+            </ul>
         </div>
     </div>
 </nav>

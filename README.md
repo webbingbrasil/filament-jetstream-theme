@@ -16,10 +16,21 @@ php artisan vendor:publish --tag="filament-jetstream-views"
 
 ## User manage account menu
 
-You can add links to user manage account menu, just set `$navigationGroup` in you resources or pages to 'Manage Account'
+To register new items to the user menu, you should use a service provider:
 
-```
-protected static ?string $navigationGroup = 'Manage Account';
+```php
+use Filament\Facades\Filament;
+use Filament\Navigation\UserMenuItem;
+ 
+Filament::serving(function () {
+    Filament::registerUserMenuItems([
+        UserMenuItem::make()
+            ->label('Settings')
+            ->url(route('filament.pages.settings'))
+            ->icon('heroicon-s-cog'),
+        // ...
+    ]);
+});
 ```
 
 ## Add resource title and description
