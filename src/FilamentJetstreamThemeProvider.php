@@ -14,6 +14,7 @@ class FilamentJetstreamThemeProvider extends PluginServiceProvider
 
     public function packageConfigured(Package $package): void
     {
+//        return;
         $package->hasRoute('web');
 
         // set Nunito font
