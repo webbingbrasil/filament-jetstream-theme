@@ -33,7 +33,7 @@
          x-transition:leave-start="transform opacity-100 scale-100"
          x-transition:leave-end="transform opacity-0 scale-95"
          @class([
-            "absolute z-50 mt-2 rounded-md overflow-hidden shadow-lg ",
+            "absolute z-50 mt-2 rounded-md overflow-hidden shadow-lg bg-white",
             'dark:border-gray-600 dark:bg-gray-700' => config('filament.dark_mode'),
              $alignmentClasses,
              $width,
