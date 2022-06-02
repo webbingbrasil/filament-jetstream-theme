@@ -13,13 +13,15 @@
         @endif
 
         <x-filament::form wire:submit.prevent="create">
-            <x-filament-jetstream::card>
+            <x-filament::card>
                 {{ $this->form }}
 
-                <x-slot name="actions">
-                    <x-filament::form.actions :actions="$this->getFormActions()" />
+                <x-slot name="footer">
+                    <div class="flex justify-end">
+                        <x-filament::form.actions :actions="$this->getCachedFormActions()" />
+                    </div>
                 </x-slot>
-            </x-filament-jetstream::card>
+            </x-filament::card>
         </x-filament::form>
     </x-filament-jetstream::grid-section>
 </x-filament::page>

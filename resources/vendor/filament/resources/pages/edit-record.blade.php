@@ -1,4 +1,4 @@
-<x-filament::page :widget-record="$record" class="filament-resources-edit-record-page">
+<x-filament::page :widget-data="['record' => $record]" class="filament-resources-edit-record-page">
     <x-filament-jetstream::grid-section>
         @if(isset($this->pageSectionTitle))
             <x-slot name="title">
@@ -13,7 +13,7 @@
         @endif
 
         <x-filament::form wire:submit.prevent="save">
-            <x-filament-jetstream::card>
+            <x-filament::card>
                 {{ $this->form }}
 
                 @if (count($relationManagers = $this->getRelationManagers()))
@@ -22,10 +22,12 @@
                     <x-filament::resources.relation-managers :active-manager="$activeRelationManager" :managers="$relationManagers" :owner-record="$record" />
                 @endif
 
-                <x-slot name="actions">
-                    <x-filament::form.actions :actions="$this->getFormActions()" />
+                <x-slot name="footer">
+                    <div class="flex justify-end">
+                        <x-filament::form.actions :actions="$this->getCachedFormActions()" />
+                    </div>
                 </x-slot>
-            </x-filament-jetstream::card>
+            </x-filament::card>
         </x-filament::form>
     </x-filament-jetstream::grid-section>
 </x-filament::page>

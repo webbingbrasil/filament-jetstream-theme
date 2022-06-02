@@ -1,6 +1,6 @@
 # Filament Jetstream Theme
 
-A Jetstream theme for filament
+A Jetstream theme for filament admin
 
 ## Installation
 
@@ -56,7 +56,7 @@ You can add title and description to resources pages using `$pageSectionTitle` a
 
 ## Components
 
-You can use two extra components to design you custom pages: `<x-filament-jetstream::grid-section>` and `<x-filament-jetstream::card>` 
+You can use a extra component to design you custom pages: `<x-filament-jetstream::grid-section>` 
 
 
 Usage example
@@ -71,13 +71,13 @@ Usage example
         </x-slot>
 
         <x-filament::form wire:submit.prevent="create">
-            <x-filament-jetstream::card>
+            <x-filament::card>
                 {{ $this->form }}
 
-                <x-slot name="actions">
+                <x-slot name="footer">
                     <x-filament::form.actions :actions="$this->getFormActions()" />
                 </x-slot>
-            </x-filament-jetstream::card>
+            </x-filament::card>
         </x-filament::form>
     </x-filament-jetstream::grid-section>
 ```
