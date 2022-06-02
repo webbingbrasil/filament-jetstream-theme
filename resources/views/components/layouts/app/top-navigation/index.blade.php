@@ -4,19 +4,14 @@
     $userMenuItems = \Filament\Facades\Filament::getUserMenuItems();
     $accountItem = $userMenuItems['account'] ?? null;
     $logoutItem = $userMenuItems['logout'] ?? null;
+    $darkMode = config('filament.dark_mode');
 @endphp
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" @class([
+        "bg-white border-b border-gray-100",
+        'dark:border-gray-600 dark:bg-gray-800' => config('filament.dark_mode'),
+    ])>
     <!-- Primary Navigation Menu -->
-    <div @class([match (config('filament.layout.max_content_width')) {
-                    'xl' => 'max-w-xl',
-                    '2xl' => 'max-w-2xl',
-                    '3xl' => 'max-w-3xl',
-                    '4xl' => 'max-w-4xl',
-                    '5xl' => 'max-w-5xl',
-                    '6xl' => 'max-w-6xl',
-                    'full' => 'max-w-full',
-                    default => 'max-w-7xl',
-                },'mx-auto px-4 sm:px-6 lg:px-8'])>
+    <div @class(['mx-auto px-4 sm:px-6 lg:px-8'])>
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -44,13 +39,21 @@
                                         <x-filament-jetstream::layouts.app.top-navigation.dropdown-link
                                             href="{{ $item->getUrl() }}"
                                             :icon="$item->getIcon()"
-                                            :active="$item->isActive()">
+                                            :active="$item->isActive()"
+                                            :darkMode="$darkMode">
                                             {{ $item->getLabel() }}
                                         </x-filament-jetstream::layouts.app.top-navigation.dropdown-link>
                                     @endforeach
                                 </x-slot>
                                 <x-slot name="trigger">
-                                    <span class="h-full cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 {{ $groupActive ? 'border-indigo-400' : 'border-transparent' }} text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                    <span @class([
+                                                "h-full cursor-pointer border-transparent inline-flex items-center px-1",
+                                                "pt-1 border-b-2 text-sm font-medium leading-5 focus:outline-none transition",
+                                                "duration-150 ease-in-out hover:border-gray-300 focus:border-gray-300",
+                                                "hover:text-gray-700 focus:text-gray-700" => !$darkMode,
+                                                "border-indigo-400" => $groupActive,
+                                                'dark:hover:text-white dark:focus:text-white' => $darkMode,
+                                            ])>
                                         {{ __($group) }}
                                     </span>
                                 </x-slot>
@@ -60,7 +63,8 @@
                                 <x-filament-jetstream::layouts.app.top-navigation.nav-link
                                     href="{{ $item->getUrl() }}"
                                     :icon="$item->getIcon()"
-                                    :active="$item->isActive()">
+                                    :active="$item->isActive()"
+                                    :darkMode="$darkMode">
                                     {{ $item->getLabel() }}
                                 </x-filament-jetstream::layouts.app.top-navigation.nav-link>
                             @endforeach

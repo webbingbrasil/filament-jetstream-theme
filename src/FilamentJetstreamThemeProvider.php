@@ -3,9 +3,10 @@
 namespace Webbingbrasil\FilamentJetstreamTheme;
 
 use Filament\Facades\Filament;
-use Filament\PluginServiceProvider;
-use Spatie\LaravelPackageTools\Package;
 use function Filament\get_asset_id;
+use Filament\PluginServiceProvider;
+use Illuminate\Support\Facades\Config;
+use Spatie\LaravelPackageTools\Package;
 
 class FilamentJetstreamThemeProvider extends PluginServiceProvider
 {
@@ -14,6 +15,9 @@ class FilamentJetstreamThemeProvider extends PluginServiceProvider
     public function packageConfigured(Package $package): void
     {
         $package->hasRoute('web');
+
+        // set Nunito font
+        Config::set('filament.google_fonts', 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
         // add theme path hint to filament namespace
         $this->callAfterResolving('view', function ($view) use ($package) {
@@ -40,10 +44,9 @@ class FilamentJetstreamThemeProvider extends PluginServiceProvider
             ]));
         });
 
-
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                $this->package->basePath('/../resources/vendor/filament') => base_path("resources/views/vendor/filament"),
+                $this->package->basePath('/../resources/vendor/filament') => base_path('resources/views/vendor/filament'),
             ], "{$this->package->shortName()}-views");
         }
     }
