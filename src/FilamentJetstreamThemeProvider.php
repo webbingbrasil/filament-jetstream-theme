@@ -4,18 +4,22 @@ namespace Webbingbrasil\FilamentJetstreamTheme;
 
 use Filament\Facades\Filament;
 use function Filament\get_asset_id;
+use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Spatie\LaravelPackageTools\Package;
+use Webbingbrasil\FilamentJetstreamTheme\Pages\Profile;
 
 class FilamentJetstreamThemeProvider extends PluginServiceProvider
 {
-    public static string $name = 'filament-jetstream';
-
-    public function packageConfigured(Package $package): void
+    public function configurePackage(Package $package): void
     {
-//        return;
-        $package->hasRoute('web');
+        $package
+            ->name('filament-jetstream')
+            ->hasConfigFile()
+            ->hasViews()
+            ->hasRoute('web')
+            ->hasTranslations();
 
         // set Nunito font
         Config::set('filament.google_fonts', 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
@@ -35,20 +39,40 @@ class FilamentJetstreamThemeProvider extends PluginServiceProvider
                 }
             }
 
-            $view->addNamespace($namespace, $this->package->basePath('/../resources/vendor/filament'));
-        });
-
-        Filament::serving(function (): void {
-            Filament::registerTheme(route('filament.jetstream.asset', [
-                'id' => get_asset_id('app.css'),
-                'file' => 'app.css',
-            ]));
+            $view->addNamespace($namespace, $package->basePath('/../resources/vendor/filament'));
         });
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                $this->package->basePath('/../resources/vendor/filament') => base_path('resources/views/vendor/filament'),
-            ], "{$this->package->shortName()}-views");
+                $package->basePath('/../resources/vendor/filament') => base_path('resources/views/vendor/filament'),
+            ], "{$package->shortName()}-views");
         }
+    }
+
+    public function packageBooted(): void
+    {
+        parent::packageBooted();
+
+        Filament::serving(function () {
+            Filament::registerTheme(route('filament.jetstream.asset', [
+                'id' => get_asset_id('app.css'),
+                'file' => 'app.css',
+            ]));
+            if (config('filament-jetstream.enable_profile_page')
+                && config('filament-jetstream.show_profile_page_in_user_menu')) {
+                Filament::registerUserMenuItems([
+                    'account' => UserMenuItem::make()
+                        ->url(config('filament-jetstream.profile_page_class', Profile::class)::getUrl()),
+                ]);
+            }
+        });
+    }
+
+    protected function getPages(): array
+    {
+        return config('filament-jetstream.enable_profile_page') ?
+            [
+                config('filament-jetstream.profile_page_class', Profile::class),
+            ] : [];
     }
 }
