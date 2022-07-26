@@ -54,7 +54,7 @@
                                                 "border-indigo-400" => $groupActive,
                                                 'dark:hover:text-white dark:focus:text-white' => $darkMode,
                                             ])>
-                                        {{ __($group) }}
+                                        {{ __($group->getLabel()) }}
                                     </span>
                                 </x-slot>
                             </x-filament-jetstream::layouts.app.top-navigation.dropdown>
