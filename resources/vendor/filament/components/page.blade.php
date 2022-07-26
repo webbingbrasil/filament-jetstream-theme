@@ -19,7 +19,19 @@
                 </x-filament::header>
             @endif
         </div>
-        <div class="space-y-6 px-4 md:px-6 lg:px-8">
+        <div @class([
+                "space-y-6 mx-auto px-4 md:px-6 lg:px-8",
+                match ($maxContentWidth ?? config('filament.layout.max_content_width')) {
+                    'xl' => 'max-w-xl',
+                    '2xl' => 'max-w-2xl',
+                    '3xl' => 'max-w-3xl',
+                    '4xl' => 'max-w-4xl',
+                    '5xl' => 'max-w-5xl',
+                    '6xl' => 'max-w-6xl',
+                    'full' => 'max-w-full',
+                    default => 'max-w-7xl',
+                },
+            ])>
 
             <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$this->getBreadcrumbs()" />
 
