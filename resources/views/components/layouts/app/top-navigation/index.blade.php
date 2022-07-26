@@ -102,7 +102,7 @@
             @foreach ($navigation as $group)
                 @if (filled($group->getLabel()))
                     <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ $group }}
+                        {{ $group->getLabel() }}
                     </div>
                 @endif
                 @foreach ($group->getItems() as $item)
