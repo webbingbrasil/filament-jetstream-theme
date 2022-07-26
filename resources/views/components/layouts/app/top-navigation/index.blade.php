@@ -23,14 +23,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @foreach ($navigation as $group => ['items' => $items, 'collapsible' => $collapsible])
-                        @if ($group)
+                    @foreach ($navigation as $group)
+                        @if (filled($group->getLabel()))
                             @php
                                 $groupActive = false;
                             @endphp
                             <x-filament-jetstream::layouts.app.top-navigation.dropdown>
                                 <x-slot name="content">
-                                    @foreach ($items as $item)
+                                    @foreach ($group->getItems() as $item)
                                         @php
                                             if ($item->isActive()) {
                                                 $groupActive = true;
@@ -59,7 +59,7 @@
                                 </x-slot>
                             </x-filament-jetstream::layouts.app.top-navigation.dropdown>
                         @else
-                            @foreach ($items as $item)
+                            @foreach ($group->getItems() as $item)
                                 <x-filament-jetstream::layouts.app.top-navigation.nav-link
                                     href="{{ $item->getUrl() }}"
                                     :icon="$item->getIcon()"
@@ -99,13 +99,13 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @foreach ($navigation as $group => ['items' => $items, 'collapsible' => $collapsible])
-                @if ($group)
+            @foreach ($navigation as $group)
+                @if (filled($group->getLabel()))
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ $group }}
                     </div>
                 @endif
-                @foreach ($items as $item)
+                @foreach ($group->getItems() as $item)
                     <x-filament-jetstream::layouts.app.top-navigation.responsive-nav-link
                         href="{{ $item->getUrl() }}"
                         :icon="$item->getIcon()"
