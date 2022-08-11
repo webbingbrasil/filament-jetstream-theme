@@ -76,6 +76,8 @@
                     </x-slot>
                 @endif
 
+                {{ $action->getModalContent() }}
+
                 @if ($action->hasFormSchema())
                     {{ $this->getMountedActionForm() }}
                 @endif
@@ -96,6 +98,4 @@
     {{ $this->modal }}
 
     @stack('modals')
-
-    <x-filament::notification-manager />
 </div>

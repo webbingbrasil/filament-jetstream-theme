@@ -21,6 +21,7 @@
             <div class="py-4 shrink-0 filament-main-footer">
                 <x-filament::footer />
             </div>
+            @livewire('notifications')
         </div>
     </div>
 </x-filament::layouts.base>
