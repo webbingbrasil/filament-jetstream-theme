@@ -30,11 +30,11 @@ class FilamentJetstreamThemeProvider extends PluginServiceProvider
             if (isset($this->app->config['view']['paths']) &&
                 is_array($this->app->config['view']['paths'])) {
                 foreach ($this->app->config['view']['paths'] as $viewPath) {
-                    if (is_dir($appPath = $viewPath.'/vendor/filament-jetstream')) {
+                    if (is_dir($appPath = $viewPath . '/vendor/filament-jetstream')) {
                         // add a custom vendor path in project resource
                         // folder to allow override theme views
                         $view->addNamespace($package->shortName(), $appPath);
-                        $view->addNamespace($namespace, $viewPath.'/vendor/filament');
+                        $view->addNamespace($namespace, $viewPath . '/vendor/filament');
                     }
                 }
             }

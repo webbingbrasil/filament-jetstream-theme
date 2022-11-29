@@ -1,7 +1,7 @@
 <?php
 
-use Webbingbrasil\FilamentJetstreamTheme\Http\Controllers\AssetController;
 use Illuminate\Support\Facades\Route;
+use Webbingbrasil\FilamentJetstreamTheme\Http\Controllers\AssetController;
 
 Route::domain(config('filament.domain'))
     ->middleware(config('filament.middleware.base'))

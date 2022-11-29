@@ -12,8 +12,11 @@ class Profile extends Page
     protected static string $view = 'filament-jetstream::pages.profile';
 
     public $user;
+
     public $userData;
+
     public $new_password;
+
     public $new_password_confirmation;
 
     public function mount()
