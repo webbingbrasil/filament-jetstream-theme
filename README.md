@@ -69,7 +69,7 @@ public function boot()
 }
 ```
 
-### Exten profile page class
+### Extend profile page class
 
 Another way to customize profile page is extending page class.
 
@@ -112,27 +112,6 @@ Filament::serving(function () {
         // ...
     ]);
 });
-```
-
-## Add resource title and description
-
-You can add title and description to resources pages using `$pageSectionTitle` and `$pageSectionDescription` properties in resource page class
-
-```php
-    <?php
-    
-    namespace App\Filament\Resources\UserResource\Pages;
-    
-    use App\Filament\Resources\UserResource;
-    use Filament\Resources\Pages\CreateRecord;
-
-    class CreateUserContent extends CreateRecord
-    {
-        protected static string $resource = UserResource::class;
-    
-        public string $pageSectionTitle = 'Resource Details';
-        public string $pageSectionDescription = 'Resource details description';
-    }
 ```
 
 ## Components

@@ -75,13 +75,11 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
-                <div class="ml-3 relative">
-                    @livewire('filament.core.global-search')
-                </div>
-                <!-- Settings Dropdown -->
-                <div class="ml-3 relative">
-                    <x-filament::layouts.app.topbar.user-menu />
-                </div>
+                @livewire('filament.core.global-search')
+
+                @livewire('filament.core.notifications')
+            
+                <x-filament::layouts.app.topbar.user-menu />
             </div>
 
             <!-- Hamburger -->
